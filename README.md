@@ -124,7 +124,7 @@ Stores individual account holders and their current balance.
 | Column | Type | Constraints |
 |--------|------|-------------|
 | `account_id` | `INT` | `PRIMARY KEY`, `AUTO_INCREMENT` |
-| `account_name` | `VARCHAR(100)` | `NOT NULL`, `CHECK (TRIM(account_name) != '')` |
+| `account_name` | `VARCHAR(100)` | `NOT NULL`, `UNIQUE`, `CHECK (TRIM(account_name) != '')` |
 | `balance` | `DECIMAL(12,2)` | `NOT NULL`, `DEFAULT 0.00`, `CHECK (balance >= 0)` |
 | `created_at` | `TIMESTAMP` | `DEFAULT CURRENT_TIMESTAMP` |
 
