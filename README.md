@@ -740,5 +740,3 @@ Returns aggregated statistics:
 | **Rate limiting** | Flask-Limiter integration to demonstrate DoS protection |
 
 ---
-
-*This project was developed as part of the DBMS course at VIT University. All financial amounts are in Indian Rupees (₹) and are purely illustrative.*
