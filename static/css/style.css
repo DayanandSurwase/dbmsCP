@@ -1,0 +1,892 @@
+/* 
+  Conditional Transaction Engine — style.css
+  Glassmorphic Pill UI + Powder Blue / Soft Lavender / Sunset Peach 
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* --- CSS Reset & Box-Sizing --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* --- CSS Custom Properties --- */
+:root {
+  /* Reference Palette (image_407066.png) */
+  --palette-powder-blue: #8DB9F0;
+  --palette-powder-blue-deep: #629be4;
+  --palette-lavender-white: #E9E8F8;
+  --palette-sunset-peach: #F5B69E;
+  --palette-sunset-peach-deep: #eb9d80;
+
+  /* Deep Navy Ink for High Contrast */
+  --color-ink-primary: #1E2438;
+  --color-ink-secondary: #5A627A;
+  --color-ink-muted: #8A92A8;
+
+  /* Glass & Surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-strong: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.85);
+  --color-border: rgba(141, 185, 240, 0.35);
+
+  /* Status Colors */
+  --color-success: #15803d;
+  --color-success-bg: #dcfce7;
+  --color-success-text: #14532d;
+  --color-danger: #b91c1c;
+  --color-danger-bg: #fee2e2;
+  --color-danger-text: #7f1d1d;
+  --color-warning: #b45309;
+  --color-warning-bg: #fef3c7;
+  --color-warning-text: #78350f;
+
+  /* Shadows */
+  --shadow-glass: 0 12px 32px rgba(30, 36, 56, 0.06), 0 2px 6px rgba(141, 185, 240, 0.14);
+  --shadow-float: 0 18px 40px rgba(30, 36, 56, 0.10), 0 4px 12px rgba(141, 185, 240, 0.18);
+
+  /* Layout */
+  --sidebar-width: 224px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-pill: 9999px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-ink-primary);
+  min-height: 100vh;
+  display: flex;
+  /* Soft atmospheric blend using the 3 palette swatches */
+  background:
+    radial-gradient(circle at 12% 14%, rgba(141, 185, 240, 0.55) 0%, transparent 45%),
+    radial-gradient(circle at 88% 82%, rgba(245, 182, 158, 0.48) 0%, transparent 48%),
+    linear-gradient(145deg, #dce8fa 0%, var(--palette-lavender-white) 52%, #dce8fa 100%);
+  background-attachment: fixed;
+}
+
+/* ===================================================================
+   FLOATING GLASS PILL SIDEBAR (Matches Left Dock in image_407028.jpg)
+   =================================================================== */
+.sidebar {
+  position: fixed;
+  left: 1.25rem;
+  top: 1.25rem;
+  bottom: 1.25rem;
+  width: var(--sidebar-width);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 32px;
+  box-shadow: var(--shadow-float);
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 0.75rem;
+  z-index: 100;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.375rem 0.625rem 1.25rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(30, 36, 56, 0.06);
+}
+
+.logo-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(135deg, var(--palette-powder-blue), var(--palette-sunset-peach));
+  color: var(--color-ink-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(141, 185, 240, 0.4);
+}
+
+.logo-badge svg {
+  width: 19px;
+  height: 19px;
+}
+
+.logo-text {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-ink-primary);
+}
+
+/* --- Sidebar Nav --- */
+.sidebar nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  color: var(--color-ink-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.nav-item .nav-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--color-ink-secondary);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.nav-item .nav-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.65);
+  color: var(--color-ink-primary);
+}
+
+.nav-item:hover .nav-icon {
+  background-color: var(--palette-lavender-white);
+  color: var(--color-ink-primary);
+}
+
+/* Active state: dark circular icon pill like the active Home icon in image_407028.jpg */
+.nav-item.active {
+  background-color: #ffffff;
+  color: var(--color-ink-primary);
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(30, 36, 56, 0.08);
+}
+
+.nav-item.active .nav-icon {
+  background-color: var(--color-ink-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(30, 36, 56, 0.25);
+}
+
+/* --- Sidebar Footer --- */
+.sidebar-footer {
+  padding: 0.875rem 0.75rem 0.25rem;
+  border-top: 1px solid rgba(30, 36, 56, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.footer-badge {
+  display: inline-block;
+  padding: 0.2rem 0.625rem;
+  border-radius: var(--radius-pill);
+  background: var(--palette-sunset-peach);
+  color: var(--color-ink-primary);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.footer-sub {
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  padding-left: 0.15rem;
+}
+
+/* ===================================================================
+   MAIN CONTENT
+   =================================================================== */
+.main-content {
+  margin-left: calc(var(--sidebar-width) + 2.5rem);
+  flex: 1;
+  padding: 1.75rem 2.25rem 2.5rem 0.75rem;
+  min-height: 100vh;
+}
+
+/* ===================================================================
+   PAGES (SPA)
+   =================================================================== */
+.page {
+  display: none;
+  animation: fadeIn 0.22s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Page Header --- */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-secondary);
+  margin-bottom: 0.15rem;
+}
+
+.page-header h1 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--color-ink-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+/* ===================================================================
+   GLASS CARDS (Matches Rounded Floating Cards in image_407028.jpg)
+   =================================================================== */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  box-shadow: var(--shadow-glass);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--glass-border);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.875rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(30, 36, 56, 0.06);
+}
+
+.card-header h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-ink-primary);
+  letter-spacing: -0.01em;
+}
+
+.card-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: rgba(141, 185, 240, 0.28);
+  color: var(--color-ink-primary);
+}
+
+/* ===================================================================
+   STATS GRID
+   =================================================================== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.125rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem 1.5rem;
+  box-shadow: var(--shadow-glass);
+  border: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 4px;
+  border-radius: 0 0 8px 8px;
+  background: var(--stat-accent, var(--palette-powder-blue));
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-float);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-ink-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-ink-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.stat-sub {
+  font-size: 0.75rem;
+  color: var(--color-ink-muted);
+  margin-top: 0.3rem;
+}
+
+.stat-card.stat-blue  { --stat-accent: var(--palette-powder-blue); }
+.stat-card.stat-green { --stat-accent: #4ade80; }
+.stat-card.stat-red   { --stat-accent: var(--palette-sunset-peach); }
+.stat-card.stat-amber { --stat-accent: var(--palette-lavender-white); }
+
+/* ===================================================================
+   BALANCE GRID (Palette Swatch Cards)
+   =================================================================== */
+.balance-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 0.25rem;
+}
+
+.balance-card {
+  background: linear-gradient(135deg, var(--palette-powder-blue) 0%, #a9caf5 55%, var(--palette-lavender-white) 100%);
+  color: var(--color-ink-primary);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.45rem;
+  min-width: 195px;
+  box-shadow: 0 8px 20px rgba(141, 185, 240, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.balance-card:nth-child(even) {
+  background: linear-gradient(135deg, var(--palette-sunset-peach) 0%, #f8cbb9 55%, var(--palette-lavender-white) 100%);
+  box-shadow: 0 8px 20px rgba(245, 182, 158, 0.28);
+}
+
+.balance-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-float);
+}
+
+.balance-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(30, 36, 56, 0.7);
+  margin-bottom: 0.375rem;
+}
+
+.balance-amount {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-ink-primary);
+}
+
+.balance-id {
+  font-size: 0.72rem;
+  color: rgba(30, 36, 56, 0.58);
+  margin-top: 0.3rem;
+}
+
+/* ===================================================================
+   TABLES
+   =================================================================== */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+thead {
+  background-color: rgba(233, 232, 248, 0.75);
+}
+
+thead th {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-secondary);
+  border-bottom: 1px solid rgba(30, 36, 56, 0.06);
+  white-space: nowrap;
+}
+
+tbody tr {
+  border-bottom: 1px solid rgba(30, 36, 56, 0.05);
+  transition: background-color 0.15s ease;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+tbody td {
+  padding: 0.85rem 1rem;
+  color: var(--color-ink-primary);
+  vertical-align: middle;
+}
+
+.table-empty {
+  text-align: center;
+  padding: 2.5rem;
+  color: var(--color-ink-muted);
+  font-size: 0.875rem;
+}
+
+/* ===================================================================
+   BADGES
+   =================================================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.badge-success,
+.badge-active {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+}
+
+.badge-rejected {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-text);
+}
+
+.badge-pending {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+
+.badge-inactive {
+  background-color: var(--palette-lavender-white);
+  color: var(--color-ink-secondary);
+}
+
+/* ===================================================================
+   FORMS (Soft Pill Inputs)
+   =================================================================== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  flex: 1;
+  min-width: 180px;
+}
+
+.form-group label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-ink-primary);
+  padding-left: 0.25rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.125rem;
+  flex-wrap: wrap;
+}
+
+.form-inline {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-inline .form-group {
+  flex: 1;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.65rem 1.05rem;
+  border: 1px solid rgba(141, 185, 240, 0.45);
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--color-ink-primary);
+  background-color: rgba(255, 255, 255, 0.92);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%231E2438' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--palette-powder-blue-deep);
+  box-shadow: 0 0 0 4px rgba(141, 185, 240, 0.28);
+}
+
+input::placeholder {
+  color: var(--color-ink-muted);
+}
+
+/* ===================================================================
+   BUTTONS (Pill Action Buttons from image_407028.jpg)
+   =================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Primary Dark Pill Button (Matches "View Details ->" in image_407028.jpg) */
+.btn-primary {
+  background-color: var(--color-ink-primary);
+  color: #ffffff;
+  padding-right: 0.45rem;
+  box-shadow: 0 6px 18px rgba(30, 36, 56, 0.2);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #2c3552;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(30, 36, 56, 0.26);
+}
+
+.btn-circle-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  background: var(--palette-powder-blue);
+  color: var(--color-ink-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-circle-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Top Pill Button (Matches "<- Buy" / "Rent ->" in image_407028.jpg) */
+.btn-pill,
+.btn-secondary {
+  background-color: var(--glass-bg-strong);
+  color: var(--color-ink-primary);
+  border-color: var(--glass-border);
+  box-shadow: var(--shadow-glass);
+}
+
+.btn-pill:hover:not(:disabled),
+.btn-secondary:hover:not(:disabled) {
+  background-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Sunset Peach Button */
+.btn-peach {
+  background-color: var(--palette-sunset-peach);
+  color: var(--color-ink-primary);
+  box-shadow: 0 4px 14px rgba(245, 182, 158, 0.35);
+}
+
+.btn-peach:hover:not(:disabled) {
+  background-color: var(--palette-sunset-peach-deep);
+}
+
+/* Danger & Success (for JS dynamic action buttons) */
+.btn-danger {
+  background-color: var(--color-danger);
+  color: #ffffff;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  color: #ffffff;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.8125rem;
+}
+
+.btn-large {
+  padding: 0.75rem 0.65rem 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+/* ===================================================================
+   TRANSFER PAGE
+   =================================================================== */
+.transfer-card {
+  max-width: 560px;
+}
+
+.transfer-card form .form-group {
+  margin-bottom: 1rem;
+}
+
+.transfer-result {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.transfer-result.success {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-text);
+  border: 1px solid #a7f3d0;
+}
+
+.transfer-result.rejected {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger-text);
+  border: 1px solid #fca5a5;
+}
+
+.transfer-result.pending {
+  background-color: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  border: 1px solid #fcd34d;
+}
+
+.result-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.375rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.result-detail {
+  font-size: 0.8125rem;
+  opacity: 0.85;
+}
+
+/* ===================================================================
+   FILTERS (Matches Top Pill Filter Bar in image_407028.jpg)
+   =================================================================== */
+.filter-card {
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.filters-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filters-row .form-group {
+  flex: 1;
+  min-width: 160px;
+  max-width: 280px;
+}
+
+/* ===================================================================
+   FORM RESULT & UTILITIES
+   =================================================================== */
+.form-result {
+  margin-top: 0.875rem;
+  font-size: 0.875rem;
+  min-height: 1.5rem;
+}
+
+.form-result.result-success {
+  color: var(--color-success-text);
+  background-color: var(--color-success-bg);
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-pill);
+}
+
+.form-result.result-error {
+  color: var(--color-danger-text);
+  background-color: var(--color-danger-bg);
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-pill);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.text-muted {
+  color: var(--color-ink-muted);
+  font-size: 0.8125rem;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.8125rem;
+}
+
+/* ===================================================================
+   LOADING SPINNER
+   =================================================================== */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--palette-lavender-white);
+  border-top-color: var(--palette-powder-blue-deep);
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  vertical-align: middle;
+}
+
+.spinner-sm {
+  width: 14px;
+  height: 14px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 1.5rem;
+  color: var(--color-ink-muted);
+  font-size: 0.875rem;
+}
+
+.action-btn-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.amount-cell {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-primary);
+}
+
+/* ===================================================================
+   RESPONSIVE
+   =================================================================== */
+@media (max-width: 1280px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .filter-card {
+    border-radius: var(--radius-lg);
+  }
+  .main-content {
+    padding: 1.5rem 1.5rem 2rem 0.5rem;
+  }
+}

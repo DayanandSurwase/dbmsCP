@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conditional Transaction Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <!-- Floating Pill Sidebar Navigation (Inspired by Reference UI) -->
+  <aside class="sidebar">
+    <div class="sidebar-logo" title="TxEngine — Conditional Transaction Engine">
+      <div class="logo-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+          <path d="M3 3v5h5"/>
+          <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
+          <path d="M16 16h5v5"/>
+        </svg>
+      </div>
+      <span class="logo-text">TxEngine</span>
+    </div>
+
+    <nav>
+      <a href="#" class="nav-item active" data-page="dashboard" title="Dashboard">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+        </span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+
+      <a href="#" class="nav-item" data-page="accounts" title="Accounts">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </span>
+        <span class="nav-label">Accounts</span>
+      </a>
+
+      <a href="#" class="nav-item" data-page="contracts" title="Contracts">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </span>
+        <span class="nav-label">Contracts</span>
+      </a>
+
+      <a href="#" class="nav-item" data-page="transfer" title="Transfer">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"/>
+            <polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </span>
+        <span class="nav-label">Transfer</span>
+      </a>
+
+      <a href="#" class="nav-item" data-page="history" title="History">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <polyline points="12 7 12 12 15 14"/>
+          </svg>
+        </span>
+        <span class="nav-label">History</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="footer-badge">DBMS</span>
+      <span class="footer-sub">VIT University</span>
+    </div>
+  </aside>
+
+  <!-- Main content area -->
+  <main class="main-content">
+
+    <!-- Page: Dashboard -->
+    <div id="page-dashboard" class="page active">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">CONDITIONAL ENGINE</span>
+          <h1>Dashboard</h1>
+        </div>
+        <button onclick="loadDashboard()" class="btn btn-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+            <path d="M21 3v5h-5"/>
+          </svg>
+          Refresh
+        </button>
+      </div>
+
+      <!-- Stats cards row -->
+      <div class="stats-grid" id="stats-grid">
+        <!-- Filled by JS -->
+      </div>
+
+      <!-- Account balances -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Account Balances</h2>
+          <span class="card-badge">Live Wallets</span>
+        </div>
+        <div id="account-balances" class="balance-grid"></div>
+      </div>
+
+      <!-- Recent transactions table -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Recent Transactions</h2>
+        </div>
+        <div id="recent-transactions"></div>
+      </div>
+    </div>
+
+    <!-- Page: Accounts -->
+    <div id="page-accounts" class="page">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">LEDGER ENTITIES</span>
+          <h1>Accounts</h1>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h2>Create Account</h2></div>
+        <form id="create-account-form" class="form-inline">
+          <div class="form-group">
+            <label for="new-account-name">Account Name</label>
+            <input type="text" id="new-account-name" placeholder="e.g. Charlie" required>
+          </div>
+          <div class="form-group">
+            <label for="new-account-balance">Initial Balance (₹)</label>
+            <input type="number" id="new-account-balance" value="0" min="0" step="0.01">
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Create Account
+            <span class="btn-circle-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </span>
+          </button>
+        </form>
+        <div id="account-form-result" class="form-result"></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h2>All Accounts</h2></div>
+        <div id="accounts-table"></div>
+      </div>
+    </div>
+
+    <!-- Page: Contracts -->
+    <div id="page-contracts" class="page">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">SMART CONSTRAINTS</span>
+          <h1>Contract Management</h1>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h2>Create Contract</h2></div>
+        <form id="create-contract-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="new-contract-name">Contract Name</label>
+              <input type="text" id="new-contract-name" placeholder="e.g. Premium Transfer" required>
+            </div>
+            <div class="form-group">
+              <label for="new-contract-desc">Description</label>
+              <input type="text" id="new-contract-desc" placeholder="Contract description">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="new-contract-min-balance">Min Sender Balance (₹)</label>
+              <input type="number" id="new-contract-min-balance" value="0" min="0" step="0.01">
+            </div>
+            <div class="form-group">
+              <label for="new-contract-max-amount">Max Transfer Amount (₹)</label>
+              <input type="number" id="new-contract-max-amount" value="5000" min="0.01" step="0.01" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Create Contract
+            <span class="btn-circle-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </span>
+          </button>
+        </form>
+        <div id="contract-form-result" class="form-result"></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h2>All Contracts</h2></div>
+        <div id="contracts-table"></div>
+      </div>
+    </div>
+
+    <!-- Page: Transfer -->
+    <div id="page-transfer" class="page">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">ATOMIC EXECUTION</span>
+          <h1>Execute Transfer</h1>
+        </div>
+      </div>
+      <div class="card transfer-card">
+        <form id="transfer-form">
+          <div class="form-group">
+            <label for="transfer-sender">Sender Account</label>
+            <select id="transfer-sender" required></select>
+          </div>
+          <div class="form-group">
+            <label for="transfer-receiver">Receiver Account</label>
+            <select id="transfer-receiver" required></select>
+          </div>
+          <div class="form-group">
+            <label for="transfer-contract">Contract</label>
+            <select id="transfer-contract" required></select>
+          </div>
+          <div class="form-group">
+            <label for="transfer-amount">Amount (₹)</label>
+            <input type="number" id="transfer-amount" value="1000" min="0.01" step="0.01" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large" id="transfer-btn">
+            Execute Transaction
+            <span class="btn-circle-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"/>
+                <polyline points="7 7 17 7 17 17"/>
+              </svg>
+            </span>
+          </button>
+        </form>
+        <div id="transfer-result" class="transfer-result hidden"></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><h2>Contract Rules Reference</h2></div>
+        <div id="contract-rules-ref"></div>
+      </div>
+    </div>
+
+    <!-- Page: History -->
+    <div id="page-history" class="page">
+      <div class="page-header">
+        <div>
+          <span class="eyebrow">AUDIT LOG</span>
+          <h1>Transaction History</h1>
+        </div>
+        <button onclick="loadHistory()" class="btn btn-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+            <path d="M21 3v5h-5"/>
+          </svg>
+          Refresh
+        </button>
+      </div>
+      <!-- Filters (Pill Filter Bar Style) -->
+      <div class="card filter-card">
+        <div class="filters-row">
+          <div class="form-group">
+            <label for="filter-status">Status</label>
+            <select id="filter-status">
+              <option value="">All</option>
+              <option value="SUCCESS">SUCCESS</option>
+              <option value="REJECTED">REJECTED</option>
+              <option value="PENDING">PENDING</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filter-account">Account (sender or receiver)</label>
+            <select id="filter-account"><option value="">All</option></select>
+          </div>
+          <button onclick="loadHistory()" class="btn btn-peach">Apply Filters</button>
+        </div>
+      </div>
+      <div class="card">
+        <div id="history-table"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

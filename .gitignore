@@ -1,0 +1,47 @@
+# ── Python ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.Python
+build/
+dist/
+*.egg-info/
+
+# ── Virtual environments ──────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ── Environment & secrets ─────────────────────────────────
+# Keep .env.example in version control; never commit .env
+.env
+
+# ── IDE / Editor ──────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# ── Operating System ──────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs ──────────────────────────────────────────────────
+*.log
+logs/
+
+# ── MySQL dumps ───────────────────────────────────────────
+# Keep schema.sql and seed.sql under version control.
+# Exclude ad-hoc backup dumps.
+*.sql.bak
+*.dump
+
+# ── Testing & coverage ────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
